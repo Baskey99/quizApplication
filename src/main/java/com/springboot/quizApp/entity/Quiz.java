@@ -1,6 +1,5 @@
 package com.springboot.quizApp.entity;
 
-import java.util.Arrays;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -18,32 +17,32 @@ public class Quiz {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="answer")
-	private String answer;
+	@Column(name="correct_answer")
+	private String correct_answer;
 	
 	@Column(name="question")
 	private String question;
 	
-	@Column(name="wrong_answer")
-	private String wrongAnswers;
+	@Column(name="incorrect_answers")
+	private List<String> incorrect_answers;
 
 	public Quiz() {
 		
 	}
 
-	public Quiz(int id, String answer, String question, String wrongAnswers) {
+	public Quiz(int id, String correct_answer, String question, List<String> incorrect_answers) {
 		super();
 		this.id = id;
-		this.answer = answer;
+		this.correct_answer = correct_answer;
 		this.question = question;
-		this.wrongAnswers = wrongAnswers;
+		this.incorrect_answers = incorrect_answers;
 	}
 
-	public Quiz(String answer, String question, String wrongAnswers) {
+	public Quiz(String correct_answer, String question, List<String> incorrect_answers) {
 		super();
-		this.answer = answer;
+		this.correct_answer = correct_answer;
 		this.question = question;
-		this.wrongAnswers = wrongAnswers;
+		this.incorrect_answers = incorrect_answers;
 	}
 
 	public int getId() {
@@ -54,12 +53,12 @@ public class Quiz {
 		this.id = id;
 	}
 
-	public String getAnswer() {
-		return answer;
+	public String getCorrect_answer() {
+		return correct_answer;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setCorrect_answer(String correct_answer) {
+		this.correct_answer = correct_answer;
 	}
 
 	public String getQuestion() {
@@ -70,20 +69,19 @@ public class Quiz {
 		this.question = question;
 	}
 
-	public String getWrongAnswers() {
-		return wrongAnswers;
+	public List<String> getIncorrect_answers() {
+		return incorrect_answers;
 	}
 
-	public void setWrongAnswers(String wrongAnswers) {
-		this.wrongAnswers = wrongAnswers;
+	public void setIncorrect_answers(List<String> incorrect_answers) {
+		this.incorrect_answers = incorrect_answers;
 	}
 
 	@Override
 	public String toString() {
-		return "Quiz [id=" + id + ", answer=" + answer + ", question=" + question + ", wrongAnswers=" + wrongAnswers
-				+ "]";
+		return "Quiz [id=" + id + ", correct_answer=" + correct_answer + ", question=" + question
+				+ ", incorrect_answers=" + incorrect_answers + "]";
 	}
+	
 
-	
-	
 }

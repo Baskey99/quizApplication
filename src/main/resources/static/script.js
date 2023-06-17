@@ -21,19 +21,63 @@ let questions = [],
   currentQuestion,
   timer;
 
-const getData = async(num) => {
-    try {
-    const url = `https://jservice.io/api/random?count=${num}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-}
-getData(3);
 
-const startQuiz = () => {
+// ajax call
+const getDevices = async () => {
+	const data= {
+	    "id": 2,
+	    "answer": "Python",
+	    "question": "What is best language in the world?",
+	    "wrongAnswers": [
+	        "Python",
+	        "Dot net",
+	        "c language"
+	    ]
+	};
+	const url = "http://localhost:8080/api/getSearchResult";
+    try {
+	    const config = {
+	        method: 'POST',
+	        headers: {
+	            'Accept': 'application/json',
+	            'Content-Type': 'application/json',
+	        },
+	        body: JSON.stringify(data)
+	    }
+	    const response = await fetch(url, config);
+	    if (response.ok) {
+	        //return json
+	        return response;
+	    } else {
+	        //
+	    }
+	} catch (error) {
+	        //
+	}
+
+}
+// Spring boot Response
+const startQuiz = () => { 
+	 const num = numQuestions.value
+	loadingAnimation();
+	
+	  const url = `http://localhost:8080/api/getSearchResult?id=${num}`;
+	  
+	  fetch(url)
+	    .then((res) => res.json())
+	    .then((data) => {
+	      questions = data;
+	      setTimeout(() => {
+	        startScreen.classList.add("hide");
+	        quiz.classList.remove("hide");
+	        currentQuestion = 1;
+	        showQuestion(questions[0]);
+	      }, 1000);
+	    });
+};
+
+
+const startQuiz2 = () => {
   const num = numQuestions.value,
     cat = category.value,
     diff = difficulty.value;
@@ -47,6 +91,7 @@ const startQuiz = () => {
         startScreen.classList.add("hide");
         quiz.classList.remove("hide");
         currentQuestion = 1;
+       
         showQuestion(questions[0]);
       }, 1000);
     });
@@ -66,7 +111,7 @@ const showQuestion = (question) => {
     ...question.incorrect_answers,
     question.correct_answer.toString(),
   ];
-  console.log(answers);
+  
   answersWrapper.innerHTML = "";
   answers.sort(() => Math.random() - 0.5);
   answers.forEach((answer) => {
@@ -131,7 +176,7 @@ const loadingAnimation = () => {
     }
   }, 500);
 };
-defineProperty();
+
 
 const submitBtn = document.querySelector(".submit"),
   nextBtn = document.querySelector(".next");
