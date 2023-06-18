@@ -8,15 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DemoController {
 
 	// create a mapping for "/hello"
-	
-	@GetMapping("/hello")
-	public String sayHello(Model theModel) {
 		
-		theModel.addAttribute("theDate", new java.util.Date());
-		
-		return "helloworld";
-	}
-	
 	@GetMapping("/start")
 	public String startQuiz() {
 		

@@ -21,26 +21,33 @@ public class QuizController {
 	@Autowired
 	private QuizService quizService;
 	
+	// Get all list of quiz
 	@GetMapping("/list")
 	public List<Quiz> getListOfQues(){		
+		
 		return quizService.getAll();
 	}
 	
+	// Get list of quiz by id
 	@GetMapping("/list/{quizId}")
 	public Quiz findById(@PathVariable int quizId) {
+		
 		return quizService.findById(quizId);
 	}
 	
+	// Post the quiz
 	@PostMapping("/save")
 	public Quiz saveQuiz(@RequestBody Quiz quiz){
+		
 		quiz.setId(0);
 		Quiz dbQuiz = quizService.save(quiz);
 		return dbQuiz;
 	}
 	
+	// Get list of Quiz by limit of question and order by anwser
 	@GetMapping("/getSearchResult")
-	public List<Quiz> get(@RequestParam String id) {
+	public List<Quiz> get(@RequestParam String limit) {
 		
-		return quizService.findOrderedByLimitedTo(Integer.parseInt(id));
+		return quizService.findOrderedByLimitedTo(Integer.parseInt(limit));
 	}
 }
